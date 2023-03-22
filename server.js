@@ -3,14 +3,16 @@ const app = express();
 const port = 4000;
 
 app.get("/greeting/:name", (req, res) => {
-  const name = req.params.name; // this took me some time to remember to do this , I kept onb using just req.params at first
+  const name = req.params.name; 
   res.send("Hello there, " + name);
 });
 
 app.get("/tip/:total/:tipPercentage", (req, res) => {
-  res.send(req.params.tipPercentage);
-  console.log(tip, "tip");
-});
+    let tips = req.params.total * req.params.tipPercentage / 100;
+    res.send(`Tips: ${tips}`);
+  });
+
+
 
 app.get("/magic/:question", (req, res) => {
   const query = req.params.question;
@@ -37,10 +39,11 @@ app.get("/magic/:question", (req, res) => {
     "Very doubtful",
   ];
   const randomAnswer = array[Math.floor(Math.random() * array.length)];
-
-
 res.send(query + "? <h1> Hmmm, here is what I think:</h1>" + randomAnswer);
 });
+
+
+
 app.listen(port, () => {
   console.log(`Server is listening to PORT ${port} `);
 });
